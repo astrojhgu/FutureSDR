@@ -99,6 +99,7 @@ pub trait BlockT: Send + Any {
 
     // ##### MESSAGE IO
     fn message_input_name_to_id(&self, name: &str) -> Option<usize>;
+    fn message_input_names(&self) -> Vec<String>;
     fn message_outputs(&self) -> &Vec<MessageOutput>;
     fn message_outputs_mut(&mut self) -> &mut Vec<MessageOutput>;
     fn message_output(&self, id: usize) -> &MessageOutput;
@@ -202,6 +203,9 @@ impl<T: Kernel + Send + 'static> BlockT for TypedBlock<T> {
     fn message_input_name_to_id(&self, name: &str) -> Option<usize> {
         self.mio.input_name_to_id(name)
     }
+    fn message_input_names(&self) -> Vec<String> {
+        self.mio.input_names()
+    }
     fn message_outputs(&self) -> &Vec<MessageOutput> {
         self.mio.outputs()
     }
@@ -263,8 +267,8 @@ impl Block {
     pub fn instance_name(&self) -> Option<&str> {
         self.0.instance_name()
     }
-    pub fn set_instance_name(&mut self, name: &str) {
-        self.0.set_instance_name(name)
+    pub fn set_instance_name(&mut self, name: impl AsRef<str>) {
+        self.0.set_instance_name(name.as_ref())
     }
     pub fn type_name(&self) -> &str {
         self.0.type_name()
@@ -329,6 +333,9 @@ impl Block {
     // ##### MESSAGE IO
     pub fn message_input_name_to_id(&self, name: &str) -> Option<usize> {
         self.0.message_input_name_to_id(name)
+    }
+    pub fn message_input_names(&self) -> Vec<String> {
+        self.0.message_input_names()
     }
     pub fn message_outputs(&self) -> &Vec<MessageOutput> {
         self.0.message_outputs()
