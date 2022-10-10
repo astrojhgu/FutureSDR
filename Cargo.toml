@@ -1,6 +1,6 @@
 [package]
 name = "futuresdr"
-version = "0.0.25"
+version = "0.0.27"
 authors = ["FutureSDR Contributors <team@futuresdr.org>"]
 edition = "2021"
 rust-version = "1.60"
@@ -17,6 +17,7 @@ members = [
     ".",
     "frontend",
     "futuredsp",
+    "macros",
     "pmt",
 ]
 
@@ -49,6 +50,10 @@ name = "soapy"
 required-features = ["soapy"]
 
 [[example]]
+name = "soapy_multichan"
+required-features = ["soapy"]
+
+[[example]]
 name = "vulkan"
 required-features = ["vulkan"]
 
@@ -77,6 +82,7 @@ dyn-clone = "1.0.9"
 futures = "0.3.18"
 futures-lite = "1.10.0"
 futuredsp = { path = "futuredsp", version = "0.0.6" }
+futuresdr-macros = { path = "macros", version = "0.0.2" }
 futuresdr-pmt = { path = "pmt", version = "0.0.6" }
 log = { version = "0.4", features = ["std", "max_level_debug", "release_max_level_info"] }
 num-complex = "0.4.0"
@@ -108,7 +114,7 @@ web-sys = "=0.3.58"
 async-executor = "1.4.1"
 async-fs = "1.5.0"
 async-io = "1.6.0"
-async-lock = "2.4.0"
+async-lock = "2.5.0"
 async-net = "1.5.0"
 async-task = "4.0.3"
 async-tungstenite = "0.17.0"

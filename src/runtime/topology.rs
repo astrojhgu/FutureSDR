@@ -195,8 +195,8 @@ impl Topology {
             .stream_input_name_to_id(dst_port)
             .context("invalid dst port name")?;
 
-        if sp.item_size() != dp.item_size() {
-            bail!("item sizes do not match");
+        if sp.type_id() != dp.type_id() {
+            bail!("item types do not match");
         }
 
         let buffer_entry = BufferBuilderEntry {
@@ -265,8 +265,8 @@ impl Topology {
                     // there should be exactly one buffer, with exactly one connection to the input
                     if self
                         .stream_edges
-                        .iter()
-                        .map(|(_, v)| v.iter().filter(|x| **x == (block_id, input_id)).count() == 1)
+                        .values()
+                        .map(|v| v.iter().filter(|x| **x == (block_id, input_id)).count() == 1)
                         .filter(|b| *b)
                         .count()
                         != 1
